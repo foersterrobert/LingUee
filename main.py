@@ -6,8 +6,6 @@ from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAct
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 from ulauncher.api.shared.action.HideWindowAction import HideWindowAction
 
-import subprocess
-import sys
 import requests
 from bs4 import BeautifulSoup
 import webbrowser
@@ -60,6 +58,7 @@ class ItemEnterEventListener(EventListener):
                                 description=data['description'],
                                 on_enter=webbrowser.open(data['address']))
         ])
+
 
 if __name__ == '__main__':
     LingUeeExtension().run()
