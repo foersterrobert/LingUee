@@ -1,7 +1,7 @@
 {
     "required_api_version": "^2.0.0",
     "name": "LingUee",
-    "description": "Save your ideas to Notion",
+    "description": "Search for a word in Linguee",
     "developer_name": "Robert Förster",
     "icon": "images/icon.png",
     "options": {
