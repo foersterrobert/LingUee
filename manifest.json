@@ -1,0 +1,19 @@
+{
+    "required_api_version": "^2.0.0",
+    "name": "LingUee",
+    "description": "Save your ideas to Notion",
+    "developer_name": "Robert Förster",
+    "icon": "images/icon.png",
+    "options": {
+      "query_debounce": 1
+    },
+    "preferences": [
+      {
+        "id": "linguee_keyword",
+        "type": "keyword",
+        "name": "LingUee",
+        "description": "LingUee extension",
+        "default_value": "lin"
+      }
+    ]
+  }
