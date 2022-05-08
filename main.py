@@ -10,28 +10,34 @@ import requests
 from bs4 import BeautifulSoup
 import webbrowser
 
-
 class LingUeeExtension(Extension):
     def __init__(self):
         super().__init__()
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
         self.subscribe(ItemEnterEvent, ItemEnterEventListener())
 
-
 class KeywordQueryEventListener(EventListener):
     def on_event(self, event, extension):
-        if event.get_argument() != None:
-            address = f'https://www.linguee.de/deutsch-englisch/search?source=auto&query={event.get_argument()}'
+        query = event.get_argument()
+        if query:
+            language = 'deutsch-englisch'
+            if '$' in query:
+                language = query.split(' ')[0][1:]
+                query = ' '.join(query.split(' ')[1:])
+            address = f'https://www.linguee.de/{language}/search?source=auto&query={query}'
             request = requests.get(address)
-            soup = BeautifulSoup(request.content, "html.parser")
+            soup = BeautifulSoup(request.content, 'html.parser')
+
             try:
-                trans = ", ".join([i.find('a').text.strip() for i in soup.find_all('h3', {'class': 'translation_desc'})[:3]])
+                trans = ', '.join([i.find('a').text.strip() for i in soup.find_all('h3', {'class': 'translation_desc'})[:3]])
             except:
-                trans = "Not found"
+                trans = 'Not found'
+
             data = {
-                'name': event.get_argument(),
+                'name': query,
                 'description': trans,
-                'address': address}
+                'address': address
+            }
 
             return RenderResultListAction([
                 ExtensionResultItem(icon='images/icon.png',
@@ -48,7 +54,6 @@ class KeywordQueryEventListener(EventListener):
                     on_enter=HideWindowAction())
             ])
 
-
 class ItemEnterEventListener(EventListener):
     def on_event(self, event, extension):
         data = event.get_data()
@@ -58,7 +63,6 @@ class ItemEnterEventListener(EventListener):
                                 description=data['description'],
                                 on_enter=webbrowser.open(data['address']))
         ])
-
 
 if __name__ == '__main__':
     LingUeeExtension().run()
