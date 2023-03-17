@@ -14,6 +14,25 @@
         "name": "LingUee",
         "description": "LingUee extension",
         "default_value": "lin"
+      },
+      {
+        "id": "langA",
+        "type": "input",
+        "name": "Language A",
+        "default_value": "german"
+      },
+      {
+        "id": "langB",
+        "type": "input",
+        "name": "Language B",
+        "default_value": "english"
+      },
+      {
+        "id": "domain",
+        "type": "input",
+        "name": "Linguee website version",
+        "description": "(.com, .de, .fr, .it, .es ...)",
+        "default_value": ".de"
       }
     ]
   }
