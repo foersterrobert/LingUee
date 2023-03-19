@@ -19,12 +19,15 @@ class LingUeeExtension(Extension):
 class KeywordQueryEventListener(EventListener):
     def on_event(self, event, extension):
         query = event.get_argument()
+        langA = extension.preferences['langA']
+        langB = extension.preferences['langB']
+        domain = extension.preferences['domain'].replace('.','')
         if query:
-            language = 'deutsch-englisch'
+            language = f'{langA}-{langB}'
             if '$' in query:
                 language = query.split(' ')[0][1:]
                 query = ' '.join(query.split(' ')[1:])
-            address = f'https://www.linguee.de/{language}/search?source=auto&query={query}'
+            address = f'https://www.linguee.{domain}/{language}/search?source=auto&query={query}'
             request = requests.get(address)
             soup = BeautifulSoup(request.content, 'html.parser')
 
